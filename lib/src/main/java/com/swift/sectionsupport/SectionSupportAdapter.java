@@ -67,12 +67,17 @@ public class SectionSupportAdapter extends RecyclerView.Adapter implements IBase
             int beforeStart = getOuterPosition(positionStart);
             Object oldItemType = sectionPoints.get(positionStart);
             findSections();
+            int afterStart = getOuterPosition(positionStart);
             int trueItemCount = getOuterPosition(positionStart + itemCount) - beforeStart;
             Object newItemType = sectionPoints.get(positionStart);
             if (newItemType != null && oldItemType != null && newItemType != oldItemType) {
                 notifyItemRangeInserted(beforeStart - 1, trueItemCount + 1);
             } else {
                 notifyItemRangeInserted(beforeStart, trueItemCount);
+                Object firstType = getRawItemType(positionStart);
+                if (firstType != null && beforeStart == afterStart) {
+                    refreshSection(firstType);
+                }
             }
         }
     };
