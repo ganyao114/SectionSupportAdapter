@@ -117,7 +117,7 @@ public class SectionSupportAdapter extends RecyclerView.Adapter implements IBase
 
     @Override
     public int getItemViewType(int position) {
-        if (isSection(position)) {
+        if (isPrivatePosition(position)) {
             return ITEM_VIEW_TYPE_SECTION;
         } else {
             int innerPosition = getInnerPosition(position);
@@ -138,6 +138,14 @@ public class SectionSupportAdapter extends RecyclerView.Adapter implements IBase
         }
         adapter.notifyDataSetChanged();
         return isHides.get(itemType);
+    }
+
+    public void collapse(Object itemType) {
+        hide(itemType, true);
+    }
+
+    public void expand(Object itemType) {
+        hide(itemType, false);
     }
 
     public void hide(Object itemType, boolean hide) {
@@ -226,19 +234,9 @@ public class SectionSupportAdapter extends RecyclerView.Adapter implements IBase
         return adapter;
     }
 
-
-    public boolean isSection(RecyclerView.ViewHolder viewHolder) {
-        return isSection(viewHolder.getAdapterPosition());
-    }
-
-
-    public boolean isSection(int position) {
-        return sections.values().contains(position);
-    }
-
     @Override
     public boolean isPrivatePosition(int position) {
-        return isSection(position);
+        return sections.values().contains(position);
     }
 
     @Override
