@@ -36,6 +36,10 @@ sectionSupportAdapter.collapse(itemType);
 //展开某分组
 sectionSupportAdapter.expand(itemType);
 ```
+
+如果要加入分割线，请使用附带的 MyDividerItemDecoration.java  
+因为该 Adapter 实现原理是通过使用空 ViewHolder，和 空 View，使用分割线需要在 ItemDecoration 对 View 进行高度判断
+
 当 Adapter 责任链较多时需要暴露给其他 Adapter 的信息
 ```java
 public interface IBaseAdapter {
